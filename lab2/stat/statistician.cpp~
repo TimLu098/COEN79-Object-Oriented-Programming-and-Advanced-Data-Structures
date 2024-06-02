@@ -1,0 +1,145 @@
+/*Yen-Jung Lu
+  COEN79 Lab2 - statistician.cpp
+  Friday lab
+  04/15/2022
+*/
+
+#include "statistician.h"
+#include<cassert>
+#include<iostream>
+
+using namespace coen79_lab2;
+
+namespace coen79_lab2{
+
+
+statistician::statistician(){
+        reset();
+    }
+
+
+
+void statistician::next(double x){
+    
+    Len++;
+    Sum += x;
+    
+    if (Len == 1) {
+        Min = x;
+        Max = x;
+    }
+    else if(x<Min){
+        Min = x;
+    }
+    else if(x>Max){
+        Max = x;
+    }
+}
+
+
+
+int statistician::length(){
+    return Len;
+
+}
+
+//This function will shows the  sequence sum
+
+double statistician::sum(){
+    if (Len == 0) {
+        return 0;
+    }
+    return Sum;
+}
+
+//This function will shows the  sequence mean
+
+double statistician::mean(){
+    if (Len == 0) {
+        return 0;
+    }
+    return (Sum/Len);
+}
+
+//returns the largest element of the sequence
+double statistician::maximum(){
+	if (Len == 0) {
+        	return 0;
+        }
+
+	return Max;
+}
+
+
+//returns the smallest element of the sequence
+
+double statistician::minimum(){
+    if (Len == 0) {
+        return 0;
+    }
+    return Min;
+}
+
+//resets the values of all the variables
+
+void statistician::reset(){
+    Len= 0;
+    Sum= 0.0;
+    Min= 0.0;
+    Max= 0.0;
+}
+
+//overloads the addition operator so that two statistician objects can be added together
+
+statistician operator + (statistician a, statistician b){
+    statistician c;
+    c.Len = a.Len + b.Len;
+    c.Sum = a.Sum + b.Sum;
+    
+    if (a.Min<b.Min) {
+        c.Min = a.Min;
+    }
+    else{
+        c.Min = b.Min;
+    }
+    if (a.Max>b.Max) {
+        c.Max = a.Max;
+    }
+    else{
+        c.Max = b.Max;
+    }
+    return c;
+    
+    
+}
+
+//overloads the multiplication operator so that two statistician objects can be multiplied together
+
+statistician operator * (double x, statistician a){
+    statistician c;
+    double temp = 0.0;
+    c.Len=a.Len;
+    c.Sum=a.Sum * x;
+    c.Max=a.Max * x;
+    c.Min=a.Min * x;
+    
+    if (c.Min>c.Max) {
+        temp = c.Max;
+        c.Max = c.Min;
+        c.Min = temp;
+    }
+    return c;
+    
+}
+    
+//overloads the assignment operator so that a statistician object can be copied onto another object
+
+bool operator == ( statistician &a, statistician &b){
+    if(a.length()==b.length() && a.sum()==b.sum() && a.maximum()==b.maximum() && a.minimum() == b.minimum()){
+        return true;
+    }
+    return false;
+}
+
+}
+
