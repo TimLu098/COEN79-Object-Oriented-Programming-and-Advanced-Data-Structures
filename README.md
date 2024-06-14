@@ -1,3 +1,4 @@
+# COEN79 Object-Oriented Programming and Advanced Data Structures
 - Object-oriented programming concepts; 
 - Specification, design, and implementation of data structures with emphasis on software reliability and reusability;
 
